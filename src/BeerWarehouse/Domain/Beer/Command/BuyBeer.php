@@ -50,16 +50,3 @@ final class BuyBeer extends Command implements PayloadConstructable
         $this->payload = $payload;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

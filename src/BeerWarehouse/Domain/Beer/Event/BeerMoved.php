@@ -12,9 +12,6 @@ final class BeerMoved extends AggregateChanged
     private $beerId;
     private $location;
 
-
-
-
     public static function withData(BeerId $beerId, Location $location): BeerMoved
     {
         $event = self::occur(
@@ -29,10 +26,6 @@ final class BeerMoved extends AggregateChanged
 
         return $event;
     }
-
-
-
-
 
     public function id(): BeerId
     {
@@ -49,11 +42,4 @@ final class BeerMoved extends AggregateChanged
         }
         return $this->location;
     }
-
-
-
-
-
-
-
 }

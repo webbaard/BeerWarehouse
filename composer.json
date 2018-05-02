@@ -1,0 +1,32 @@
+{
+    "name": "webbaard/beer-warehouse",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Tim Huijzers",
+            "email": "webbaard@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "prooph/event-sourcing": "^5.4"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "Webbaard\\BeerWarehouse\\": "src/BeerWarehouse"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webbaard\\BeerWarehouse\\": "tests/"
+        }
+    }
+}

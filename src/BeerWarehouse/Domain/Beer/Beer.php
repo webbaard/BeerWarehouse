@@ -4,11 +4,14 @@ declare(strict_types=1);
 namespace BeerWarehouse\Domain\Beer;
 
 use BeerWarehouse\Domain\Beer\Event\BeerBought;
+use BeerWarehouse\Domain\Beer\Event\BeerConsumed;
 use BeerWarehouse\Domain\Beer\Event\BeerMoved;
 use BeerWarehouse\Domain\Beer\ValueObject\BeerId;
 use BeerWarehouse\Domain\Beer\ValueObject\BeerName;
 use BeerWarehouse\Domain\Beer\ValueObject\BeerStyle;
+use BeerWarehouse\Domain\Beer\ValueObject\BoughtDate;
 use BeerWarehouse\Domain\Beer\ValueObject\Brewer;
+use BeerWarehouse\Domain\Beer\ValueObject\ConsumeDate;
 use BeerWarehouse\Domain\Beer\ValueObject\Location;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
@@ -21,13 +24,8 @@ final class Beer extends AggregateRoot
     private $name;
     private $style;
     private $location;
-
-
-
-
-
-
-
+    private $bought;
+    private $consumed;
 
     public static function buyBeer(
         Brewer $brewer,
@@ -45,13 +43,10 @@ final class Beer extends AggregateRoot
         $this->recordThat(BeerMoved::withData($this->beerId, $location));
     }
 
-
-
-
-
-
-
-
+    public function consume(): void
+    {
+        $this->recordThat(BeerConsumed::now($this->beerId));
+    }
 
     public function brewer(): Brewer
     {
@@ -65,31 +60,36 @@ final class Beer extends AggregateRoot
     {
         return $this->style;
     }
+    public function boughtOn(): BoughtDate
+    {
+        return $this->bought;
+    }
+    public function consumedOn(): ConsumeDate
+    {
+        return $this->consumed;
+    }
 
     protected function aggregateId(): string
     {
         return (string)$this->beerId;
     }
 
-
-
-
-
-
-
-
-
-
     protected function whenBeerWasBought(BeerBought $event): void
     {
         $this->brewer = $event->brewer();
         $this->name = $event->name();
         $this->style = $event->style();
+        $this->bought = $event->date();
     }
 
     protected function whenBeerWasMoved(BeerMoved $event): void
     {
         $this->location = $event->location();
+    }
+
+    protected function whenBeerWasConsumed(BeerConsumed $event): void
+    {
+        $this->consumed = $event->date();
     }
 
     protected function apply(AggregateChanged $event): void
@@ -101,14 +101,9 @@ final class Beer extends AggregateRoot
             case $event instanceof BeerMoved:
                 $this->whenBeerWasMoved($event);
                 break;
+            case $event instanceof BeerConsumed:
+                $this->whenBeerWasConsumed($event);
+                break;
         }
     }
-
-
-
-
-
-
-
-
 }

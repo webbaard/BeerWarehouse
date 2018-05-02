@@ -6,6 +6,7 @@ namespace BeerWarehouse\Domain\Beer\Event;
 use BeerWarehouse\Domain\Beer\ValueObject\BeerId;
 use BeerWarehouse\Domain\Beer\ValueObject\BeerName;
 use BeerWarehouse\Domain\Beer\ValueObject\BeerStyle;
+use BeerWarehouse\Domain\Beer\ValueObject\BoughtDate;
 use BeerWarehouse\Domain\Beer\ValueObject\Brewer;
 use Prooph\EventSourcing\AggregateChanged;
 
@@ -15,10 +16,7 @@ final class BeerBought extends AggregateChanged
     private $brewer;
     private $name;
     private $style;
-
-
-
-
+    private $date;
 
     public static function withData(
         BeerId $beerId,
@@ -39,15 +37,10 @@ final class BeerBought extends AggregateChanged
         $event->brewer = $brewer;
         $event->name = $name;
         $event->style = $style;
+        $event->date = BoughtDate::fromDateTime($event->createdAt());
 
         return $event;
     }
-
-
-
-
-
-
 
     public function id(): BeerId
     {
@@ -79,5 +72,13 @@ final class BeerBought extends AggregateChanged
             $this->style = BeerStyle::fromString($this->payload['style']);
         }
         return $this->style();
+    }
+
+    public function date(): BoughtDate
+    {
+        if (null === $this->date) {
+            $this->date = BoughtDate::fromDateTime($this->createdAt());
+        }
+        return $this->date;
     }
 }

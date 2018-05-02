@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace BeerWarehouse\Domain\Beer\Command;
 
-use BeerWarehouse\Domain\Beer\ValueObject\BeerId;
 use BeerWarehouse\Domain\Beer\ValueObject\BeerName;
 use BeerWarehouse\Domain\Beer\ValueObject\BeerStyle;
 use BeerWarehouse\Domain\Beer\ValueObject\Brewer;
@@ -11,10 +10,6 @@ use BeerWarehouse\Domain\Beer\ValueObject\Location;
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;
-
-
-
-
 
 final class BuyBeer extends Command implements PayloadConstructable
 {
@@ -33,18 +28,6 @@ final class BuyBeer extends Command implements PayloadConstructable
         ]);
     }
 
-
-
-
-
-
-
-
-
-    public function beerId(): BeerId
-    {
-        return BeerId::fromString($this->payload['id']);
-    }
     public function brewer(): Brewer
     {
         return Brewer::fromString($this->payload['brewer']);
@@ -62,27 +45,10 @@ final class BuyBeer extends Command implements PayloadConstructable
         return Location::fromString($this->payload['location']);
     }
 
-
-
-
-
-
     protected function setPayload(array $payload): void
     {
         $this->payload = $payload;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

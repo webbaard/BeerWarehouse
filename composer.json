@@ -10,7 +10,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "prooph/event-sourcing": "^5.4"
+        "prooph/event-sourcing": "^5.4",
+        "prooph/pdo-event-store": "^1.0",
+        "prooph/event-store-symfony-bundle": "^0.4"
     },
     "config": {
         "preferred-install": {

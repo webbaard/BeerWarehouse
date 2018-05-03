@@ -48,6 +48,10 @@ final class Beer extends AggregateRoot
         $this->recordThat(BeerConsumed::now($this->beerId));
     }
 
+
+
+
+
     public function brewer(): Brewer
     {
         return $this->brewer;
@@ -74,6 +78,10 @@ final class Beer extends AggregateRoot
         return (string)$this->beerId;
     }
 
+
+
+
+
     protected function whenBeerWasBought(BeerBought $event): void
     {
         $this->brewer = $event->brewer();
@@ -81,17 +89,14 @@ final class Beer extends AggregateRoot
         $this->style = $event->style();
         $this->bought = $event->date();
     }
-
     protected function whenBeerWasMoved(BeerMoved $event): void
     {
         $this->location = $event->location();
     }
-
     protected function whenBeerWasConsumed(BeerConsumed $event): void
     {
         $this->consumed = $event->date();
     }
-
     protected function apply(AggregateChanged $event): void
     {
         switch(true) {
@@ -106,4 +111,6 @@ final class Beer extends AggregateRoot
                 break;
         }
     }
+
+
 }

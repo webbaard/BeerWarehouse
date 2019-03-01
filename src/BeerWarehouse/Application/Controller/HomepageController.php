@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class DefaultController
+final class HomepageController
 {
     /**
      * @var EngineInterface
@@ -22,8 +22,7 @@ final class DefaultController
         return $this
             ->templateEngine
             ->renderResponse(
-                'default/index.html.twig',
-                ['sidebar_right' => '']
+                'pages/homepage/dashboard.html.twig'
             );
     }
 }

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Gentelella - Symfony Web Application</title>
+
+    {% block stylesheets %}
+        <link href="{{ asset('build/Global.css') }}" rel="stylesheet">
+    {% endblock stylesheets %}
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+
+        {% include 'sidebar.html.twig' %}
+        {% include 'topnav.html.twig' %}
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                {% block top_content_header %}
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>{% block page_title %}Page Title{% endblock page_title %}</h3>
+                        </div>
+
+                        <div class="title_right">
+                            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search for...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">Go!</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endblock top_content_header %}
+
+                <div class="clearfix"></div>
+
+
+                {% block page_content %}{% endblock %}
+
+
+            </div>
+        </div>
+        <!-- /page content -->
+
+
+        {% include 'footer.html.twig' %}
+
+        {% block javascripts %}
+            <script src="{{ asset('build/Jquery.js') }}"></script>
+            <script src="{{ asset('build/Bootstrap.js') }}"></script>
+            <script src="{{ asset('build/FastClick.js') }}"></script>
+            <script src="{{ asset('build/Nprogress.js') }}"></script>
+            <script src="{{ asset('build/ChartJs.js') }}"></script>
+            <script src="{{ asset('build/GaugeJs.js') }}"></script>
+            <script src="{{ asset('build/ProgressBar.js') }}"></script>
+            <script src="{{ asset('build/iCheck.js') }}"></script>
+            <script src="{{ asset('build/Skycons.js') }}"></script>
+            <script src="{{ asset('build/Flot.js') }}"></script>
+            <script src="{{ asset('build/FlotPie.js') }}"></script>
+            <script src="{{ asset('build/FlotTime.js') }}"></script>
+            <script src="{{ asset('build/FlotStack.js') }}"></script>
+            <script src="{{ asset('build/FlotResize.js') }}"></script>
+            <script src="{{ asset('build/FlotOrderBars.js') }}"></script>
+            <script src="{{ asset('build/FlotSpline.js') }}"></script>
+            <script src="{{ asset('build/FlotCurvedLines.js') }}"></script>
+            <script src="{{ asset('build/DateJs.js') }}"></script>
+            <script src="{{ asset('build/Vmap.js') }}"></script>
+            <script src="{{ asset('build/VmapWorld.js') }}"></script>
+            <script src="{{ asset('build/VmapSampleData.js') }}"></script>
+            <script src="{{ asset('build/Moment.js') }}"></script>
+            {#<script src="{{ asset('build/DateRangePicker.js') }}"></script>#}
+            <script src="{{ asset('build/Gentlelella.js') }}"></script>
+            <script src="{{ asset('build/BeerWarehouse.js') }}"></script>
+        {% endblock javascripts %}
+    </div>
+</div>
+
+{% block modals %}{% endblock modals %}
+
+</body>
+</html>

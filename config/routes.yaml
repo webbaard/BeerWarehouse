@@ -1,0 +1,27 @@
+profiling:
+  resource: "routes/dev/web_profiler.yaml"
+  prefix:   /
+
+page::home:
+    path: /
+    defaults: { _controller: Webbaard\BeerWarehouse\Application\Controller\HomepageController::indexAction }
+
+page::beer-collection:
+    path:     /beer-collection
+    defaults: { _controller: Webbaard\BeerWarehouse\Application\Controller\BeerCollectionController:collectionAction }
+
+page::buy-beer-form:
+    path:     /buy-beer
+    defaults: { _controller: Webbaard\BeerWarehouse\Application\Controller\BuyBeerFormController:formAction }
+
+command::buy-beer:
+    path: /api/commands/buy-beer
+    defaults:
+        _controller: Webbaard\BeerWarehouse\Application\Controller\ApiCommandController:postAction,
+        prooph_command_name: 'Webbaard\BeerWarehouse\Domain\Beer\Command\BuyBeer'
+
+command::consume-beer:
+    path: /api/commands/consume-beer
+    defaults:
+        _controller: Webbaard\BeerWarehouse\Application\Controller\ApiCommandController:postAction,
+        prooph_command_name: 'Webbaard\BeerWarehouse\Domain\Beer\Command\ConsumeBeer'

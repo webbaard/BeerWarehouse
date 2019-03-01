@@ -8,27 +8,22 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Webbaard\BeerWarehouse\Infra\Beer\Projection\Beer\BeerFinder;
 
-final class BuyBeerController
+final class BuyBeerFormController
 {
     /**
      * @var EngineInterface
      */
     private $templateEngine;
-    /**
-     * @var BeerFinder
-     */
-    private $beerFinder;
 
-    public function __construct(EngineInterface $templateEngine, BeerFinder $beerFinder)
+    public function __construct(EngineInterface $templateEngine)
     {
         $this->templateEngine = $templateEngine;
-        $this->beerFinder = $beerFinder;
     }
 
     public function formAction(Request $request): Response
     {
         return $this->templateEngine->renderResponse(
-            'default/buy-beer-form.html.twig'
+            'pages/buyBeerForm/buyBeerForm.html.twig'
         );
     }
 }

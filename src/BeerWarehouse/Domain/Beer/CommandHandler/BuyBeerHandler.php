@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace BeerWarehouse\Domain\Beer\CommandHandler;
+namespace Webbaard\BeerWarehouse\Domain\Beer\CommandHandler;
 
-use BeerWarehouse\Domain\Beer\Beer;
-use BeerWarehouse\Domain\Beer\Command\BuyBeer;
-use BeerWarehouse\Domain\Beer\Repository\BeerCollection;
+use Webbaard\BeerWarehouse\Domain\Beer\Beer;
+use Webbaard\BeerWarehouse\Domain\Beer\Command\BuyBeer;
+use Webbaard\BeerWarehouse\Domain\Beer\Repository\BeerCollection;
 
 final class BuyBeerHandler
 {

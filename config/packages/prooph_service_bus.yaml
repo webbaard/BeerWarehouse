@@ -1,0 +1,16 @@
+prooph_service_bus:
+  command_buses:
+    beer_command_bus:
+      router:
+        type: 'prooph_service_bus.command_bus_router'
+        routes:
+          Webbaard\BeerWarehouse\Domain\Beer\Event\BuyBeer::class:
+            Webbaard\BeerWarehouse\Domain\Beer\Event\BuyBeerHandler::class
+          Webbaard\BeerWarehouse\Domain\Beer\Event\ConsumeBeer::class:
+            Webbaard\BeerWarehouse\Domain\Beer\Event\ConsumeBeerHandler::class
+  event_buses:
+    beer_event_bus:
+      plugins:
+        - 'prooph_service_bus.on_event_invoke_strategy'
+      router:
+        type: 'prooph_service_bus.event_bus_router'

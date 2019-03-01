@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace BeerWarehouse\Infra\Projection\Beer;
+namespace Webbaard\BeerWarehouse\Infra\Beer\Projection\Beer;
 
-use BeerWarehouse\Domain\Beer\Event\BeerBought;
-use BeerWarehouse\Domain\Beer\Event\BeerConsumed;
-use BeerWarehouse\Domain\Beer\Event\BeerMoved;
+use Webbaard\BeerWarehouse\Domain\Beer\Event\BeerBought;
+use Webbaard\BeerWarehouse\Domain\Beer\Event\BeerConsumed;
+use Webbaard\BeerWarehouse\Domain\Beer\Event\BeerMoved;
 use Prooph\Bundle\EventStore\Projection\ReadModelProjection;
 use Prooph\EventStore\Projection\ReadModelProjector;
 

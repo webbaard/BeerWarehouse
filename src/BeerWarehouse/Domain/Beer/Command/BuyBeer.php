@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace BeerWarehouse\Domain\Beer\Command;
+namespace Webbaard\BeerWarehouse\Domain\Beer\Command;
 
-use BeerWarehouse\Domain\Beer\ValueObject\BeerName;
-use BeerWarehouse\Domain\Beer\ValueObject\BeerStyle;
-use BeerWarehouse\Domain\Beer\ValueObject\Brewer;
-use BeerWarehouse\Domain\Beer\ValueObject\Location;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\BeerName;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\BeerStyle;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\Brewer;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\Location;
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;

@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace BeerWarehouse\Domain\Beer\Command;
+namespace Webbaard\BeerWarehouse\Domain\Beer\Command;
 
-use BeerWarehouse\Domain\Beer\ValueObject\BeerName;
-use BeerWarehouse\Domain\Beer\ValueObject\BeerStyle;
-use BeerWarehouse\Domain\Beer\ValueObject\Brewer;
-use BeerWarehouse\Domain\Beer\ValueObject\Location;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\BeerName;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\BeerStyle;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\Brewer;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\Location;
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;
@@ -14,6 +14,14 @@ use Prooph\Common\Messaging\PayloadTrait;
 final class BuyBeer extends Command implements PayloadConstructable
 {
     use PayloadTrait;
+
+    /**
+     * @param string $brewer
+     * @param string $name
+     * @param string $style
+     * @param null|string $location
+     * @return BuyBeer
+     */
     public static function forWarehouse(
         string $brewer,
         string $name,
@@ -28,23 +36,44 @@ final class BuyBeer extends Command implements PayloadConstructable
         ]);
     }
 
+    /**
+     * @return Brewer
+     */
     public function brewer(): Brewer
     {
         return Brewer::fromString($this->payload['brewer']);
     }
+
+    /**
+     * @return BeerName
+     */
     public function name(): BeerName
     {
         return BeerName::fromString($this->payload['name']);
     }
+
+    /**
+     * @return BeerStyle
+     */
     public function style(): BeerStyle
     {
         return BeerStyle::fromString($this->payload['style']);
     }
-    public function location(): Location
+
+    /**
+     * @return Location|null
+     */
+    public function location(): ?Location
     {
-        return Location::fromString($this->payload['location']);
+        if ($this->payload['location']) {
+            return Location::fromString($this->payload['location']);
+        }
+        return null;
     }
 
+    /**
+     * @param array $payload
+     */
     protected function setPayload(array $payload): void
     {
         $this->payload = $payload;

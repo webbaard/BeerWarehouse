@@ -1,23 +1,24 @@
 <?php
 declare(strict_types=1);
 
-namespace BeerWarehouse\Domain\Beer\Event;
+namespace Webbaard\BeerWarehouse\Domain\Beer\Event;
 
-use BeerWarehouse\Domain\Beer\ValueObject\BeerId;
-use BeerWarehouse\Domain\Beer\ValueObject\BeerName;
-use BeerWarehouse\Domain\Beer\ValueObject\BeerStyle;
-use BeerWarehouse\Domain\Beer\ValueObject\BoughtDate;
-use BeerWarehouse\Domain\Beer\ValueObject\Brewer;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\BeerId;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\BeerName;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\BeerStyle;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\BoughtDate;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\Brewer;
 use Prooph\EventSourcing\AggregateChanged;
 
 final class BeerBought extends AggregateChanged
 {
-    private $beerId;
-    private $brewer;
-    private $name;
-    private $style;
-    private $date;
-
+    /**
+     * @param BeerId $beerId
+     * @param Brewer $brewer
+     * @param BeerName $name
+     * @param BeerStyle $style
+     * @return BeerBought
+     */
     public static function withData(
         BeerId $beerId,
         Brewer $brewer,
@@ -25,60 +26,54 @@ final class BeerBought extends AggregateChanged
         BeerStyle $style
     ): BeerBought {
         $event = self::occur(
-            (string)$beerId,
+            $beerId->toString(),
             [
-                'brewer' => (string)$brewer,
-                'name' => (string)$name,
-                'style' => (string)$style
+                'brewer' => $brewer->toString(),
+                'name' => $name->toString(),
+                'style' => $style->toString()
             ]
         );
-
-        $event->beerId = $beerId;
-        $event->brewer = $brewer;
-        $event->name = $name;
-        $event->style = $style;
-        $event->date = BoughtDate::fromDateTime($event->createdAt());
 
         return $event;
     }
 
+    /**
+     * @return BeerId
+     */
     public function id(): BeerId
     {
-        if (null === $this->beerId) {
-            $this->beerId = BeerId::fromString($this->aggregateId());
-        }
-        return $this->beerId;
+        return BeerId::fromString($this->aggregateId());
     }
 
+    /**
+     * @return Brewer
+     */
     public function brewer(): Brewer
     {
-        if (null === $this->brewer) {
-            $this->brewer = Brewer::fromString($this->payload['brewer']);
-        }
-        return $this->brewer;
+        return Brewer::fromString($this->payload['brewer']);
     }
 
+    /**
+     * @return BeerName
+     */
     public function name(): BeerName
     {
-        if (null === $this->name) {
-            $this->name = BeerName::fromString($this->payload['name']);
-        }
-        return $this->name;
+        return BeerName::fromString($this->payload['name']);
     }
 
+    /**
+     * @return BeerStyle
+     */
     public function style(): BeerStyle
     {
-        if (null === $this->style) {
-            $this->style = BeerStyle::fromString($this->payload['style']);
-        }
-        return $this->style();
+        return BeerStyle::fromString($this->payload['style']);
     }
 
+    /**
+     * @return BoughtDate
+     */
     public function date(): BoughtDate
     {
-        if (null === $this->date) {
-            $this->date = BoughtDate::fromDateTime($this->createdAt());
-        }
-        return $this->date;
+        return BoughtDate::fromDateTime($this->createdAt());
     }
 }

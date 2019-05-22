@@ -1,20 +1,23 @@
 <?php
 declare(strict_types=1);
 
-namespace BeerWarehouse\Domain\Beer\Repository;
+namespace Webbaard\BeerWarehouse\Domain\Beer\Repository;
 
-use BeerWarehouse\Domain\Beer\Beer;
-use BeerWarehouse\Domain\Beer\ValueObject\BeerId;
-
-
-
-
-
+use Webbaard\BeerWarehouse\Domain\Beer\Beer;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\BeerId;
 
 interface BeerCollection
 {
-    public function save(Beer $beer);
+    /**
+     * @param Beer $beer
+     * @return void
+     */
+    public function save(Beer $beer): void;
 
+    /**
+     * @param BeerId $beerId
+     * @return Beer
+     */
     public function getBeer(BeerId $beerId): Beer;
 }
 

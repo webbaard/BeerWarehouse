@@ -1,0 +1,146 @@
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+imports:
+    - { resource: "event_store_http_api.yaml" }
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Webbaard\:
+        resource: '../src/*'
+        # you can exclude directories or files
+        # but if a service is unused, it's removed anyway
+        exclude: '../src/{Entity,Migrations,Repository,Tests,Domain,Controller}'
+
+    Webbaard\BeerWarehouse\Application\Controller\HomepageController:
+        arguments: ['@templating']
+        tags: ['controller.service_arguments']
+
+    Webbaard\BeerWarehouse\Application\Controller\BeerCollectionController:
+        arguments: ['@beerwarehouse.beer_projection.beer_finder']
+        tags: ['controller.service_arguments']
+
+    Webbaard\BeerWarehouse\Application\Controller\BeerController:
+        arguments: ['@beerwarehouse.beer_projection.beer_finder']
+        tags: ['controller.service_arguments']
+
+    Webbaard\BeerWarehouse\Application\Controller\LocationCollectionController:
+        arguments: ['@beerwarehouse.location_projection.location_finder']
+        tags: ['controller.service_arguments']
+
+    Webbaard\BeerWarehouse\Application\Controller\LocationController:
+        arguments: ['@beerwarehouse.location_projection.location_finder']
+        tags: ['controller.service_arguments']
+
+    Webbaard\BeerWarehouse\Application\Controller\StyleCollectionController:
+        arguments: ['@beerwarehouse.style_projection.style_finder']
+        tags: ['controller.service_arguments']
+
+    Webbaard\BeerWarehouse\Application\Controller\StyleController:
+        arguments: ['@beerwarehouse.style_projection.style_finder']
+        tags: ['controller.service_arguments']
+
+    Webbaard\BeerWarehouse\Application\Controller\ApiCommandController:
+        arguments: ['@prooph_service_bus.beer_command_bus', '@prooph_service_bus.message_factory']
+        tags: ['controller.service_arguments']
+
+    Webbaard\BeerWarehouse\Domain\Beer\CommandHandler\ConsumeBeerHandler:
+        arguments: ['@beer_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
+
+    Webbaard\BeerWarehouse\Domain\Beer\CommandHandler\MoveBeerHandler:
+        arguments: ['@beer_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
+
+    Webbaard\BeerWarehouse\Domain\Beer\CommandHandler\RemoveBeerHandler:
+        arguments: ['@beer_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
+
+    Webbaard\BeerWarehouse\Domain\Beer\CommandHandler\BuyBeerHandler:
+        arguments: ['@beer_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
+
+    Webbaard\BeerWarehouse\Domain\Location\CommandHandler\AddLocationHandler:
+        arguments: ['@location_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
+
+    Webbaard\BeerWarehouse\Domain\Location\CommandHandler\RemoveLocationHandler:
+        arguments: ['@location_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
+
+    Webbaard\BeerWarehouse\Domain\Style\CommandHandler\AddStyleHandler:
+        arguments: ['@style_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
+
+    Webbaard\BeerWarehouse\Domain\Style\CommandHandler\RemoveStyleHandler:
+        arguments: ['@style_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
+
+    prooph_event_store_bus_bridge.beer_event_publisher:
+        class: Prooph\EventStoreBusBridge\EventPublisher
+        arguments: ['@prooph_service_bus.beer_event_bus']
+        public: true
+        tags:
+          - { name: 'prooph_event_store.beer_store.plugin' }
+
+    beerwarehouse.beer_projection.beer_finder:
+        class: Webbaard\BeerWarehouse\Infra\Beer\Projection\Beer\BeerFinder
+        arguments: ['@doctrine.dbal.default_connection']
+
+    beerwarehouse.location_projection.location_finder:
+        class: Webbaard\BeerWarehouse\Infra\Beer\Projection\Location\LocationFinder
+        arguments: ['@doctrine.dbal.default_connection']
+
+    beerwarehouse.style_projection.style_finder:
+        class: Webbaard\BeerWarehouse\Infra\Beer\Projection\Style\StyleFinder
+        arguments: ['@doctrine.dbal.default_connection']
+
+    Webbaard\BeerWarehouse\Infra\Beer\Projection\Beer\BeerProjection: ~
+    Webbaard\BeerWarehouse\Infra\Beer\Projection\Location\LocationProjection: ~
+    Webbaard\BeerWarehouse\Infra\Beer\Projection\Style\StyleProjection: ~
+    Webbaard\BeerWarehouse\Infra\Beer\Projection\Beer\BeerReadmodel:
+        arguments: ['@doctrine.dbal.default_connection']
+    Webbaard\BeerWarehouse\Infra\Beer\Projection\Location\LocationReadmodel:
+        arguments: ['@doctrine.dbal.default_connection']
+    Webbaard\BeerWarehouse\Infra\Beer\Projection\Style\StyleReadmodel:
+        arguments: ['@doctrine.dbal.default_connection']
+
+    Webbaard\BeerWarehouse\Infra\Beer\Projection\Beer\BeerProjectionManager:
+        arguments:
+            - '@prooph_event_store.projection_manager.beer_projection_manager'
+            - '@prooph_event_store.projection.beer_projection'
+            - '@prooph_event_store.projection.beer_projection.read_model'
+
+    Webbaard\BeerWarehouse\Infra\Beer\Projection\Location\LocationProjectionManager:
+        arguments:
+            - '@prooph_event_store.projection_manager.location_projection_manager'
+            - '@prooph_event_store.projection.location_projection'
+            - '@prooph_event_store.projection.location_projection.read_model'
+
+    Webbaard\BeerWarehouse\Infra\Beer\Projection\Style\StyleProjectionManager:
+        arguments:
+            - '@prooph_event_store.projection_manager.style_projection_manager'
+            - '@prooph_event_store.projection.style_projection'
+            - '@prooph_event_store.projection.style_projection.read_model'

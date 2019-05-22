@@ -23,11 +23,27 @@ services:
         tags: ['controller.service_arguments']
 
     Webbaard\BeerWarehouse\Application\Controller\BeerCollectionController:
-        arguments: ['@templating', '@beerwarehouse.beer_projection.beer_finder']
+        arguments: ['@beerwarehouse.beer_projection.beer_finder']
         tags: ['controller.service_arguments']
 
-    Webbaard\BeerWarehouse\Application\Controller\BuyBeerFormController:
-        arguments: ['@templating', '@prooph_service_bus.beer_command_bus']
+    Webbaard\BeerWarehouse\Application\Controller\BeerController:
+        arguments: ['@beerwarehouse.beer_projection.beer_finder']
+        tags: ['controller.service_arguments']
+
+    Webbaard\BeerWarehouse\Application\Controller\LocationCollectionController:
+        arguments: ['@beerwarehouse.location_projection.location_finder']
+        tags: ['controller.service_arguments']
+
+    Webbaard\BeerWarehouse\Application\Controller\LocationController:
+        arguments: ['@beerwarehouse.location_projection.location_finder']
+        tags: ['controller.service_arguments']
+
+    Webbaard\BeerWarehouse\Application\Controller\StyleCollectionController:
+        arguments: ['@beerwarehouse.style_projection.style_finder']
+        tags: ['controller.service_arguments']
+
+    Webbaard\BeerWarehouse\Application\Controller\StyleController:
+        arguments: ['@beerwarehouse.style_projection.style_finder']
         tags: ['controller.service_arguments']
 
     Webbaard\BeerWarehouse\Application\Controller\ApiCommandController:
@@ -40,8 +56,44 @@ services:
         tags:
             - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
 
+    Webbaard\BeerWarehouse\Domain\Beer\CommandHandler\MoveBeerHandler:
+        arguments: ['@beer_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
+
+    Webbaard\BeerWarehouse\Domain\Beer\CommandHandler\RemoveBeerHandler:
+        arguments: ['@beer_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
+
     Webbaard\BeerWarehouse\Domain\Beer\CommandHandler\BuyBeerHandler:
         arguments: ['@beer_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
+
+    Webbaard\BeerWarehouse\Domain\Location\CommandHandler\AddLocationHandler:
+        arguments: ['@location_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
+
+    Webbaard\BeerWarehouse\Domain\Location\CommandHandler\RemoveLocationHandler:
+        arguments: ['@location_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
+
+    Webbaard\BeerWarehouse\Domain\Style\CommandHandler\AddStyleHandler:
+        arguments: ['@style_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
+
+    Webbaard\BeerWarehouse\Domain\Style\CommandHandler\RemoveStyleHandler:
+        arguments: ['@style_collection']
         public: true
         tags:
             - { name: 'prooph_service_bus.beer_command_bus.route_target', message_detection: true }
@@ -57,8 +109,22 @@ services:
         class: Webbaard\BeerWarehouse\Infra\Beer\Projection\Beer\BeerFinder
         arguments: ['@doctrine.dbal.default_connection']
 
+    beerwarehouse.location_projection.location_finder:
+        class: Webbaard\BeerWarehouse\Infra\Beer\Projection\Location\LocationFinder
+        arguments: ['@doctrine.dbal.default_connection']
+
+    beerwarehouse.style_projection.style_finder:
+        class: Webbaard\BeerWarehouse\Infra\Beer\Projection\Style\StyleFinder
+        arguments: ['@doctrine.dbal.default_connection']
+
     Webbaard\BeerWarehouse\Infra\Beer\Projection\Beer\BeerProjection: ~
+    Webbaard\BeerWarehouse\Infra\Beer\Projection\Location\LocationProjection: ~
+    Webbaard\BeerWarehouse\Infra\Beer\Projection\Style\StyleProjection: ~
     Webbaard\BeerWarehouse\Infra\Beer\Projection\Beer\BeerReadmodel:
+        arguments: ['@doctrine.dbal.default_connection']
+    Webbaard\BeerWarehouse\Infra\Beer\Projection\Location\LocationReadmodel:
+        arguments: ['@doctrine.dbal.default_connection']
+    Webbaard\BeerWarehouse\Infra\Beer\Projection\Style\StyleReadmodel:
         arguments: ['@doctrine.dbal.default_connection']
 
     Webbaard\BeerWarehouse\Infra\Beer\Projection\Beer\BeerProjectionManager:
@@ -66,3 +132,15 @@ services:
             - '@prooph_event_store.projection_manager.beer_projection_manager'
             - '@prooph_event_store.projection.beer_projection'
             - '@prooph_event_store.projection.beer_projection.read_model'
+
+    Webbaard\BeerWarehouse\Infra\Beer\Projection\Location\LocationProjectionManager:
+        arguments:
+            - '@prooph_event_store.projection_manager.location_projection_manager'
+            - '@prooph_event_store.projection.location_projection'
+            - '@prooph_event_store.projection.location_projection.read_model'
+
+    Webbaard\BeerWarehouse\Infra\Beer\Projection\Style\StyleProjectionManager:
+        arguments:
+            - '@prooph_event_store.projection_manager.style_projection_manager'
+            - '@prooph_event_store.projection.style_projection'
+            - '@prooph_event_store.projection.style_projection.read_model'

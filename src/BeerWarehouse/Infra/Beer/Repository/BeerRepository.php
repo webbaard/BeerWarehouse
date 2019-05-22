@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Webbaard\BeerWarehouse\Infra\Beer\Repository;
 
-
 use Webbaard\BeerWarehouse\Domain\Beer\Repository\BeerCollection;
 use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\BeerId;
 use Prooph\EventSourcing\Aggregate\AggregateRepository;
@@ -25,7 +24,7 @@ final class BeerRepository extends AggregateRepository implements BeerCollection
      */
     public function getBeer(BeerId $beerId): Beer
     {
-        return $this->getAggregateRoot((string)$beerId);
+        return $this->getAggregateRoot($beerId->toString());
     }
 
 

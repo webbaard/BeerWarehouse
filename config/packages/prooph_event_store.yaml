@@ -7,6 +7,20 @@ prooph_event_store:
                     repository_class: Webbaard\BeerWarehouse\Infra\Beer\Repository\BeerRepository
                     aggregate_type: Webbaard\BeerWarehouse\Domain\Beer\Beer
                     aggregate_translator: prooph_event_sourcing.aggregate_translator
+        location_store:
+            event_store: Prooph\EventStore\Pdo\MySqlEventStore
+            repositories:
+                location_collection:
+                    repository_class: Webbaard\BeerWarehouse\Infra\Beer\Repository\LocationRepository
+                    aggregate_type: Webbaard\BeerWarehouse\Domain\Location\Location
+                    aggregate_translator: prooph_event_sourcing.aggregate_translator
+        style_store:
+            event_store: Prooph\EventStore\Pdo\MySqlEventStore
+            repositories:
+                style_collection:
+                    repository_class: Webbaard\BeerWarehouse\Infra\Beer\Repository\StyleRepository
+                    aggregate_type: Webbaard\BeerWarehouse\Domain\Style\Style
+                    aggregate_translator: prooph_event_sourcing.aggregate_translator
     projection_managers:
         beer_projection_manager:
             event_store: Prooph\EventStore\Pdo\MySqlEventStore # event store
@@ -15,6 +29,20 @@ prooph_event_store:
                 beer_projection:
                     read_model: Webbaard\BeerWarehouse\Infra\Beer\Projection\Beer\BeerReadModel
                     projection: Webbaard\BeerWarehouse\Infra\Beer\Projection\Beer\BeerProjection
+        location_projection_manager:
+            event_store: Prooph\EventStore\Pdo\MySqlEventStore # event store
+            connection: 'doctrine.pdo.connection'
+            projections:
+                location_projection:
+                    read_model: Webbaard\BeerWarehouse\Infra\Beer\Projection\Location\LocationReadModel
+                    projection: Webbaard\BeerWarehouse\Infra\Beer\Projection\Location\LocationProjection
+        style_projection_manager:
+            event_store: Prooph\EventStore\Pdo\MySqlEventStore # event store
+            connection: 'doctrine.pdo.connection'
+            projections:
+                style_projection:
+                    read_model: Webbaard\BeerWarehouse\Infra\Beer\Projection\Style\StyleReadModel
+                    projection: Webbaard\BeerWarehouse\Infra\Beer\Projection\Style\StyleProjection
 services:
     Prooph\EventStore\Pdo\MySqlEventStore:
         arguments: ['@prooph_event_store.message_factory', '@doctrine.pdo.connection', '@prooph_event_store.single_stream_strategy']

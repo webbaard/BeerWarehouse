@@ -13,28 +13,34 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ApiCommandController
 {
-    /**
-     * @var CommandBus
-     */
+    const NAME_ATTRIBUTE = 'command_name';
+
+    /** @var CommandBus */
     private $commandBus;
-    /**
-     * @var MessageFactory
-     */
+
+    /** @var MessageFactory */
     private $messageFactory;
-    /**
-     * @var LoggerInterface
-     */
+
+    /** @var LoggerInterface */
     private $logger;
-    const NAME_ATTRIBUTE = 'prooph_command_name';
+
+    /**
+     * ApiCommandController constructor.
+     * @param CommandBus $commandBus
+     * @param MessageFactory $messageFactory
+     * @param LoggerInterface $logger
+     */
     public function __construct(CommandBus $commandBus, MessageFactory $messageFactory, LoggerInterface $logger)
     {
         $this->commandBus = $commandBus;
         $this->messageFactory = $messageFactory;
         $this->logger = $logger;
     }
+
     public function postAction(Request $request)
     {
         $commandName = $request->attributes->get(self::NAME_ATTRIBUTE);
+
         if (null === $commandName) {
             return JsonResponse::create(
                 [

@@ -23,11 +23,28 @@ class BeerFinder
     }
 
     /**
-     * @return \Doctrine\DBAL\Driver\Statement
-     * @throws \Doctrine\DBAL\DBALException
+     * @return mixed[]
      */
     public function findAll()
     {
-        return $this->connection->query("SELECT * FROM " . Table::BEER);
+        $beers = $this->connection->fetchAll(
+            sprintf(
+                'SELECT * FROM %s',
+                Table::BEER
+            )
+        );
+        return $beers;
+    }
+
+    public function findById($id)
+    {
+        $beer = $this->connection->fetchAssoc(
+            sprintf(
+                'SELECT * FROM %s WHERE id = "%s"',
+                Table::BEER,
+                $id
+            )
+        );
+        return $beer;
     }
 }

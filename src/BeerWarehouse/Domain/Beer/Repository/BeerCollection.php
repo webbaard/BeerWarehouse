@@ -8,8 +8,16 @@ use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\BeerId;
 
 interface BeerCollection
 {
-    public function save(Beer $beer);
+    /**
+     * @param Beer $beer
+     * @return void
+     */
+    public function save(Beer $beer): void;
 
+    /**
+     * @param BeerId $beerId
+     * @return Beer
+     */
     public function getBeer(BeerId $beerId): Beer;
 }
 

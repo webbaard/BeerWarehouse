@@ -6,22 +6,78 @@ page::home:
     path: /
     defaults: { _controller: Webbaard\BeerWarehouse\Application\Controller\HomepageController::indexAction }
 
-page::beer-collection:
-    path:     /beer-collection
+page::settings:
+    path: /settings
+    defaults: { _controller: Webbaard\BeerWarehouse\Application\Controller\HomepageController::indexAction }
+
+data::beers:
+    path: /beer/list.json
     defaults: { _controller: Webbaard\BeerWarehouse\Application\Controller\BeerCollectionController:collectionAction }
 
-page::buy-beer-form:
-    path:     /buy-beer
-    defaults: { _controller: Webbaard\BeerWarehouse\Application\Controller\BuyBeerFormController:formAction }
+data::beer:
+    path: /beer/{id}.json
+    defaults: { _controller: Webbaard\BeerWarehouse\Application\Controller\BeerController:detailsAction }
+
+data::locations:
+    path: /location/list.json
+    defaults: { _controller: Webbaard\BeerWarehouse\Application\Controller\LocationCollectionController:collectionAction }
+
+data::location:
+    path: /location/{id}.json
+    defaults: { _controller: Webbaard\BeerWarehouse\Application\Controller\LocationController:detailsAction }
+
+data::styles:
+    path: /style/list.json
+    defaults: { _controller: Webbaard\BeerWarehouse\Application\Controller\StyleCollectionController:collectionAction }
+
+data::style:
+    path: /style/{id}.json
+    defaults: { _controller: Webbaard\BeerWarehouse\Application\Controller\StyleController:detailsAction }
 
 command::buy-beer:
     path: /api/commands/buy-beer
     defaults:
-        _controller: Webbaard\BeerWarehouse\Application\Controller\ApiCommandController:postAction,
-        prooph_command_name: 'Webbaard\BeerWarehouse\Domain\Beer\Command\BuyBeer'
+        _controller: Webbaard\BeerWarehouse\Application\Controller\ApiCommandController:postAction
+        command_name: 'Webbaard\BeerWarehouse\Domain\Beer\Command\BuyBeer'
 
 command::consume-beer:
     path: /api/commands/consume-beer
     defaults:
-        _controller: Webbaard\BeerWarehouse\Application\Controller\ApiCommandController:postAction,
-        prooph_command_name: 'Webbaard\BeerWarehouse\Domain\Beer\Command\ConsumeBeer'
+        _controller: Webbaard\BeerWarehouse\Application\Controller\ApiCommandController:postAction
+        command_name: 'Webbaard\BeerWarehouse\Domain\Beer\Command\ConsumeBeer'
+
+command::move-beer:
+    path: /api/commands/move-beer
+    defaults:
+        _controller: Webbaard\BeerWarehouse\Application\Controller\ApiCommandController:postAction
+        command_name: 'Webbaard\BeerWarehouse\Domain\Beer\Command\MoveBeer'
+
+command::remove-beer:
+    path: /api/commands/remove-beer
+    defaults:
+        _controller: Webbaard\BeerWarehouse\Application\Controller\ApiCommandController:postAction
+        command_name: 'Webbaard\BeerWarehouse\Domain\Beer\Command\RemoveBeer'
+
+command::add-location:
+    path: /api/commands/add-location
+    defaults:
+        _controller: Webbaard\BeerWarehouse\Application\Controller\ApiCommandController:postAction
+        command_name: 'Webbaard\BeerWarehouse\Domain\Location\Command\AddLocation'
+
+command::remove-location:
+    path: /api/commands/remove-location
+    defaults:
+        _controller: Webbaard\BeerWarehouse\Application\Controller\ApiCommandController:postAction
+        command_name: 'Webbaard\BeerWarehouse\Domain\Location\Command\RemoveLocation'
+
+command::add-style:
+    path: /api/commands/add-style
+    defaults:
+        _controller: Webbaard\BeerWarehouse\Application\Controller\ApiCommandController:postAction
+        command_name: 'Webbaard\BeerWarehouse\Domain\Style\Command\AddStyle'
+
+command::remove-style:
+    path: /api/commands/remove-style
+    defaults:
+        _controller: Webbaard\BeerWarehouse\Application\Controller\ApiCommandController:postAction
+        command_name: 'Webbaard\BeerWarehouse\Domain\Style\Command\RemoveStyle'

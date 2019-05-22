@@ -69,7 +69,7 @@ EOT;
     public function reset(): void
     {
         $tableName = Table::BEER;
-        $sql = "DROP TABLE $tableName;";
+        $sql = "DROP TABLE IF EXISTS $tableName;";
         $statement = $this->connection->prepare($sql);
         $statement->execute();
     }
@@ -81,7 +81,7 @@ EOT;
     public function delete(): void
     {
         $tableName = Table::BEER;
-        $sql = "DROP TABLE $tableName;";
+        $sql = "DROP TABLE IF EXISTS $tableName;";
         $statement = $this->connection->prepare($sql);
         $statement->execute();
     }
@@ -102,6 +102,7 @@ EOT;
     protected function insert(array $data): void
     {
         $this->connection->insert(Table::BEER, $data);
+
     }
 
     /**

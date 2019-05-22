@@ -9,13 +9,22 @@ use Webbaard\BeerWarehouse\Domain\Beer\Repository\BeerCollection;
 
 final class BuyBeerHandler
 {
+    /** @var BeerCollection  */
     private $beerCollection;
 
+    /**
+     * BuyBeerHandler constructor.
+     * @param BeerCollection $beerCollection
+     */
     public function __construct(BeerCollection $beerCollection)
     {
         $this->beerCollection = $beerCollection;
     }
 
+    /**
+     * @param BuyBeer $command
+     * @throws \Exception
+     */
     public function __invoke(BuyBeer $command): void
     {
         $beer = Beer::buyBeer(
@@ -23,7 +32,9 @@ final class BuyBeerHandler
             $command->name(),
             $command->style()
         );
-        $beer->moveTo($command->location());
+        if (!is_null($command->location())) {
+            $beer->moveTo($command->location());
+        }
         $this->beerCollection->save($beer);
     }
 }

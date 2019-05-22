@@ -10,10 +10,15 @@ use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\BoughtDate;
 use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\Brewer;
 use Prooph\EventSourcing\AggregateChanged;
 
-
-
 final class BeerBought extends AggregateChanged
 {
+    /**
+     * @param BeerId $beerId
+     * @param Brewer $brewer
+     * @param BeerName $name
+     * @param BeerStyle $style
+     * @return BeerBought
+     */
     public static function withData(
         BeerId $beerId,
         Brewer $brewer,
@@ -21,48 +26,54 @@ final class BeerBought extends AggregateChanged
         BeerStyle $style
     ): BeerBought {
         $event = self::occur(
-            (string)$beerId,
+            $beerId->toString(),
             [
-                'brewer' => (string)$brewer,
-                'name' => (string)$name,
-                'style' => (string)$style
+                'brewer' => $brewer->toString(),
+                'name' => $name->toString(),
+                'style' => $style->toString()
             ]
         );
 
         return $event;
     }
 
-
-
-
-
+    /**
+     * @return BeerId
+     */
     public function id(): BeerId
     {
         return BeerId::fromString($this->aggregateId());
     }
 
+    /**
+     * @return Brewer
+     */
     public function brewer(): Brewer
     {
         return Brewer::fromString($this->payload['brewer']);
     }
 
+    /**
+     * @return BeerName
+     */
     public function name(): BeerName
     {
         return BeerName::fromString($this->payload['name']);
     }
 
+    /**
+     * @return BeerStyle
+     */
     public function style(): BeerStyle
     {
         return BeerStyle::fromString($this->payload['style']);
     }
 
+    /**
+     * @return BoughtDate
+     */
     public function date(): BoughtDate
     {
         return BoughtDate::fromDateTime($this->createdAt());
     }
-
-
-
-
-
 }

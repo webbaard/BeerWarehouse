@@ -24,7 +24,7 @@ class ProjectionFactory
     /**
      * @return ReadModelProjector
      */
-    public function product(): ReadModelProjector
+    public function beer(): ReadModelProjector
     {
         return $this->beerProjectionManager->get();
     }
@@ -35,8 +35,8 @@ class ProjectionFactory
     public function resetAll()
     {
         if ($this->beerProjectionManager->exists()) {
-            $this->product()->reset();
+            $this->beer()->reset();
         }
-        $this->product()->run(false);
+        $this->beer()->run(false);
     }
 }

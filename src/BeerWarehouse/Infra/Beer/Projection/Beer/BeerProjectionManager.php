@@ -18,7 +18,7 @@ class BeerProjectionManager implements ProjectionManager
     private $beerReadModel;
 
     /**
-     * ProductProjectionManager constructor.
+     * BeerProjectionManager constructor.
      * @param ProophProjectionManager $projectionManager
      * @param BeerProjection $beerProjection
      * @param ReadModel $beerReadModel

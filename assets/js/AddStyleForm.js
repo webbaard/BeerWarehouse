@@ -27,7 +27,7 @@ export default class AddStyleForm extends Component {
         return (<div className="addstyle">
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="style">
-                    <Form.Label>Style name</Form.Label>
+                    <Form.Label>Style Name</Form.Label>
                     <Form.Control type="text" ref={this.nameInput} placeholder="Enter style name"/>
                     <Form.Text className="text-muted">
                     </Form.Text>

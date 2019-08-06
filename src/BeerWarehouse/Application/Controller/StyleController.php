@@ -7,13 +7,17 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Webbaard\BeerWarehouse\Infra\Beer\Projection\Style\StyleFinder;
 
+/**
+ * Class StyleController
+ * @package Webbaard\BeerWarehouse\Application\Controller
+ */
 final class StyleController
 {
     /** @var StyleFinder */
     private $styleFinder;
 
     /**
-     * BeerCollectionController constructor.
+     * StyleController constructor.
      * @param StyleFinder $styleFinder
      */
     public function __construct(StyleFinder $styleFinder)

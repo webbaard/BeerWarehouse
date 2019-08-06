@@ -8,7 +8,8 @@ use Webbaard\BeerWarehouse\Infra\Beer\Projection\Beer\BeerFinder;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class Beer Collection
+ * Class BeerCollectionController
+ * @package Webbaard\BeerWarehouse\Application\Controller
  */
 final class BeerCollectionController
 {

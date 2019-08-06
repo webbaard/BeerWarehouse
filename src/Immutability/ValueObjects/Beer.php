@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Webbaard\Immutability\FinalClass;
+namespace Webbaard\Immutability\ValueObjects;
 
 final class Beer
 {

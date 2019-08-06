@@ -11,8 +11,9 @@
 * php bin/console event-store:event-stream:create
 * php bin/console app:projections-reset
 
-* php bin/console assets:install
-* php bin/console assetic:dump
+* yarn install
+* yarn encore dev
+* symfony serve
 
 ### What do I have to know about the structure? ###
 

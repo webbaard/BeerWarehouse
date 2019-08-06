@@ -33,6 +33,7 @@ class LocationFinder
                 Table::LOCATION
             )
         );
+
         return $locations;
     }
 
@@ -45,6 +46,7 @@ class LocationFinder
                 $id
             )
         );
+
         return $location;
     }
 }

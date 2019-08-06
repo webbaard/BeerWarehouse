@@ -57,6 +57,7 @@ final class BeerProjection implements ReadModelProjection
                     ]);
                 }
             ]);
+
         return $projector;
     }
 }

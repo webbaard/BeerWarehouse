@@ -26,9 +26,13 @@ code {
 
 .App-header {
   background-color: #222;
-  height: 100px;
+  height: 140px;
   padding: 10px;
   color: white;
+}
+
+.App-header > a {
+  padding: 15px;
 }
 
 .App-title {

@@ -35,6 +35,7 @@ final class LocationProjection implements ReadModelProjection
                     ]);
                 }
             ]);
+
         return $projector;
     }
 }

@@ -55,6 +55,7 @@ EOT;
         if (false === $result) {
             return false;
         }
+
         return true;
     }
 

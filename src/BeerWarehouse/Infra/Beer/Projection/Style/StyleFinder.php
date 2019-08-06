@@ -33,6 +33,7 @@ class StyleFinder
                 Table::STYLE
             )
         );
+
         return $styles;
     }
 
@@ -45,6 +46,7 @@ class StyleFinder
                 $id
             )
         );
+
         return $style;
     }
 }

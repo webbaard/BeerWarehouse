@@ -14,6 +14,8 @@ class App extends Component {
                     <header className="App-header">
                         <img src={logo} className="App-logo" alt="logo" />
                         <h1 className="App-title">Beer list</h1>
+                        <a href="/">Dashboard</a>
+                        <a href="/settings">Settings</a>
                     </header>
                     <Switch>
                         <Route exact path='/' component={BeerDashboard} />

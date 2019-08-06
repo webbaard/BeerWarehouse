@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Webbaard\Immutability\ValueObject;
+namespace Webbaard\Immutability\ValueObjects;
 
-class Name
+class Brewer
 {
-    private $name;
+    private $brewer;
 
-    public function __construct(string $name) {
-        $this->name = $name;
+    public function __construct(string $brewer) {
+        $this->brewer = $brewer;
     }
 
-    public function getName(): string {
-        return $this->name;
+    public function getBrewer(): string {
+        return $this->brewer;
     }
 }

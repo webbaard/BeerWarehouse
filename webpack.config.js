@@ -8,6 +8,8 @@ Encore
 
     .addEntry('js/App', ['babel-polyfill', './assets/js/App.js'])
 
+    .disableSingleRuntimeChunk()
+
     .enableSassLoader()
     .enableSourceMaps(!Encore.isProduction())
     .cleanupOutputBeforeBuild()

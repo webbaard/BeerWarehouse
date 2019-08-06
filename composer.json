@@ -10,7 +10,8 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^7.1",
+        "php": "^7.2",
+        "ext-json": "^1.6",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-cache-bundle": "^1.2",
         "doctrine/doctrine-migrations-bundle": "~1.3",

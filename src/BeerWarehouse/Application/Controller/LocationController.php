@@ -13,7 +13,7 @@ final class LocationController
     private $locationFinder;
 
     /**
-     * BeerCollectionController constructor.
+     * LocationController constructor.
      * @param LocationFinder $locationFinder
      */
     public function __construct(LocationFinder $locationFinder)

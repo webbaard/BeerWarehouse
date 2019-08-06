@@ -33,6 +33,7 @@ final class StyleProjection implements ReadModelProjection
                     ]);
                 }
             ]);
+
         return $projector;
     }
 }

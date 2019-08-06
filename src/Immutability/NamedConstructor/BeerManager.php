@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Webbaard\Immutability\ValueObjects;
+namespace Webbaard\Immutability\NamedConstructor;
 
 class BeerManager
 {

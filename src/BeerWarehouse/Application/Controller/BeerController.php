@@ -6,8 +6,10 @@ namespace Webbaard\BeerWarehouse\Application\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Webbaard\BeerWarehouse\Infra\Beer\Projection\Beer\BeerFinder;
 use Symfony\Component\HttpFoundation\Response;
+
 /**
- * Class Beer
+ * Class BeerController
+ * @package Webbaard\BeerWarehouse\Application\Controller
  */
 final class BeerController
 {

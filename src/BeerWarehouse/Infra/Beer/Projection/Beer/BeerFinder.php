@@ -33,6 +33,7 @@ class BeerFinder
                 Table::BEER
             )
         );
+
         return $beers;
     }
 
@@ -45,6 +46,7 @@ class BeerFinder
                 $id
             )
         );
+
         return $beer;
     }
 }

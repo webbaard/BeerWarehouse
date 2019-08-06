@@ -14,9 +14,7 @@ services:
 
     Webbaard\:
         resource: '../src/*'
-        # you can exclude directories or files
-        # but if a service is unused, it's removed anyway
-        exclude: '../src/{Entity,Migrations,Repository,Tests,Domain,Controller}'
+        exclude: '../src/{Entity,Migrations,Repository,Tests,Domain,Controller,Kernel.php}'
 
     Webbaard\BeerWarehouse\Application\Controller\HomepageController:
         arguments: ['@templating']

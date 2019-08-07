@@ -1,9 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace BeerWarehouse\Infra\EventStoreHttpApi;
+namespace Webbaard\BeerWarehouse\Infra\EventStoreHttpApi;
 
-class JsonTransformer
+use Prooph\EventStore\Http\Middleware\Transformer;
+use Psr\Http\Message\ResponseInterface;
+use Zend\Diactoros\Response\JsonResponse;
+
+final class JsonTransformer implements Transformer
 {
-
+    public function createResponse(array $result): ResponseInterface
+    {
+        return new JsonResponse($result);
+    }
 }

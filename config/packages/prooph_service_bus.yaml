@@ -1,0 +1,36 @@
+prooph_service_bus:
+  command_buses:
+    beer_command_bus:
+      router:
+        type: 'prooph_service_bus.command_bus_router'
+        routes:
+          Webbaard\BeerWarehouse\Domain\Beer\Command\BuyBeer::class:
+            Webbaard\BeerWarehouse\Domain\Beer\Command\BuyBeerHandler::class
+          Webbaard\BeerWarehouse\Domain\Beer\Command\ConsumeBeer::class:
+            Webbaard\BeerWarehouse\Domain\Beer\Command\ConsumeBeerHandler::class
+          Webbaard\BeerWarehouse\Domain\Beer\Command\MoveBeer::class:
+            Webbaard\BeerWarehouse\Domain\Beer\Command\MoveBeerHandler::class
+          Webbaard\BeerWarehouse\Domain\Beer\Command\RemoveBeer::class:
+            Webbaard\BeerWarehouse\Domain\Beer\Command\RemoveBeerHandler::class
+    location_command_bus:
+      router:
+        type: 'prooph_service_bus.command_bus_router'
+        routes:
+          Webbaard\BeerWarehouse\Domain\Location\Command\AddLocation::class:
+            Webbaard\BeerWarehouse\Domain\Location\Command\AddLocationHandler::class
+          Webbaard\BeerWarehouse\Domain\Location\Command\RemoveLocation::class:
+            Webbaard\BeerWarehouse\Domain\Location\Command\RemoveLocationHandler::class
+    style_command_bus:
+      router:
+        type: 'prooph_service_bus.command_bus_router'
+        routes:
+          Webbaard\BeerWarehouse\Domain\Style\Command\AddStyle::class:
+            Webbaard\BeerWarehouse\Domain\Style\Command\AddStyleHandler::class
+          Webbaard\BeerWarehouse\Domain\Style\Command\RemoveStyle::class:
+            Webbaard\BeerWarehouse\Domain\Style\Command\RemoveStyleHandler::class
+  event_buses:
+    beer_event_bus:
+      plugins:
+        - 'prooph_service_bus.on_event_invoke_strategy'
+      router:
+        type: 'prooph_service_bus.event_bus_router'

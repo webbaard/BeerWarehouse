@@ -1,22 +1,28 @@
 <?php
 declare(strict_types=1);
 
-namespace BeerWarehouse\Domain\Beer\CommandHandler;
+namespace Webbaard\BeerWarehouse\Domain\Beer\CommandHandler;
 
-use BeerWarehouse\Domain\Beer\Beer;
-use BeerWarehouse\Domain\Beer\Command\BuyBeer;
-use BeerWarehouse\Domain\Beer\Command\ConsumeBeer;
-use BeerWarehouse\Domain\Beer\Repository\BeerCollection;
+use Webbaard\BeerWarehouse\Domain\Beer\Command\ConsumeBeer;
+use Webbaard\BeerWarehouse\Domain\Beer\Repository\BeerCollection;
 
 final class ConsumeBeerHandler
 {
+    /** @var BeerCollection  */
     private $beerCollection;
 
+    /**
+     * ConsumeBeerHandler constructor.
+     * @param BeerCollection $beerCollection
+     */
     public function __construct(BeerCollection $beerCollection)
     {
         $this->beerCollection = $beerCollection;
     }
 
+    /**
+     * @param ConsumeBeer $command
+     */
     public function __invoke(ConsumeBeer $command): void
     {
         $beer = $this->beerCollection->getBeer($command->beerId());

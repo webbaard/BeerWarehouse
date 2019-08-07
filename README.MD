@@ -13,7 +13,18 @@
 
 * yarn install
 * yarn encore dev
-* symfony serve
+* php bin/console server:run
+
+### working on frontend and want to keep track of changes in the code?
+You can start this process to make yarn watch for changes
+* yarn run encore dev --watch
+
+### I want my data to be live updated when I add, edit and remove beer, locations or styles
+You can start these processes on the background to keep track of changes
+* bin/console event-store:projection:run beer_projection
+* bin/console event-store:projection:run style_projection
+* bin/console event-store:projection:run location_projection
+
 
 ### What do I have to know about the structure? ###
 

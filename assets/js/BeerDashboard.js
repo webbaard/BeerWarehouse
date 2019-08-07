@@ -55,10 +55,11 @@ export default class BeerDashboard extends Component {
         })
     }
 
-    onNewBeerSubmit(name, brewer, style, location) {
+    onNewBeerSubmit(brewer, name, shop, style, location) {
         axios.post('/api/commands/buy-beer', JSON.stringify({
-            'name' : name,
             'brewer': brewer,
+            'name' : name,
+            'shop' : shop,
             'style' : style,
             'location' : location
         }));

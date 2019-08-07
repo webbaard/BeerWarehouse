@@ -2,6 +2,7 @@
 
 namespace Webbaard\BeerWarehouse\Infra\Beer\Projection\Location;
 
+use Doctrine\DBAL\DBALException;
 use Prooph\EventStore\Projection\ProjectionManager as ProophProjectionManager;
 use Prooph\EventStore\Projection\ReadModel;
 use Prooph\EventStore\Projection\ReadModelProjector;
@@ -44,6 +45,7 @@ class LocationProjectionManager implements ProjectionManager
 
     /**
      * @return bool
+     * @throws DBALException
      */
     public function exists(): bool
     {

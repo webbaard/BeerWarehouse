@@ -20,16 +20,16 @@ export default class AddBeerForm extends Component {
     handleSubmit (event) {
         event.preventDefault();
         const { onNewBeerSubmit } = this.props;
+        const brewerInput = this.brewerInput.current;
         const nameInput = this.nameInput.current;
         const shopInput = this.shopInput.current;
-        const brewerInput = this.brewerInput.current;
         const styleSelect = this.styleSelect.current;
         const locationSelect = this.locationSelect.current;
 
         onNewBeerSubmit(
+            brewerInput.value,
             nameInput.value,
             shopInput.value,
-            brewerInput.value,
             styleSelect.options[styleSelect.selectedIndex].value,
             locationSelect.options[locationSelect.selectedIndex].value
         );
@@ -64,7 +64,7 @@ export default class AddBeerForm extends Component {
                     </Form.Text>
                 </Form.Group>
                 <Form.Group controlId="shop">
-                    <Form.Label>Beer Name</Form.Label>
+                    <Form.Label>Shop Name</Form.Label>
                     <Form.Control type="text" ref={this.shopInput} placeholder="Enter shop"/>
                     <Form.Text className="text-muted">
                     </Form.Text>

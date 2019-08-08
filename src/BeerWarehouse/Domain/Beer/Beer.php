@@ -18,6 +18,7 @@ use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
 use Ramsey\Uuid\Uuid;
 use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\RemovedDate;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\Shop;
 
 final class Beer extends AggregateRoot
 {
@@ -29,6 +30,9 @@ final class Beer extends AggregateRoot
 
     /** @var BeerName */
     private $name;
+
+    /** @var Shop|null */
+    private $shop;
 
     /** @var BeerStyle */
     private $style;
@@ -49,17 +53,19 @@ final class Beer extends AggregateRoot
      * @param Brewer $brewer
      * @param BeerName $name
      * @param BeerStyle $style
+     * @param Shop|null $shop
      * @return Beer
      * @throws \Exception
      */
     public static function buyBeer(
         Brewer $brewer,
         BeerName $name,
-        BeerStyle $style
+        BeerStyle $style,
+        ?Shop $shop
     ): Beer {
         $self = new self();
         $self->beerId = BeerId::fromString(Uuid::uuid4()->toString());
-        $self->recordThat(BeerBought::withData($self->beerId, $brewer, $name, $style));
+        $self->recordThat(BeerBought::withData($self->beerId, $brewer, $name, $shop, $style));
         return $self;
     }
 
@@ -145,6 +151,7 @@ final class Beer extends AggregateRoot
         $this->beerId = BeerId::fromString($event->aggregateId());
         $this->brewer = $event->brewer();
         $this->name = $event->name();
+        $this->shop = $event->shop();
         $this->style = $event->style();
         $this->bought = $event->date();
     }

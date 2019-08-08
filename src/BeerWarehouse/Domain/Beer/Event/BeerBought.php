@@ -9,6 +9,7 @@ use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\BeerStyle;
 use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\BoughtDate;
 use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\Brewer;
 use Prooph\EventSourcing\AggregateChanged;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\Shop;
 
 final class BeerBought extends AggregateChanged
 {
@@ -16,6 +17,7 @@ final class BeerBought extends AggregateChanged
      * @param BeerId $beerId
      * @param Brewer $brewer
      * @param BeerName $name
+     * @param Shop|null $shop
      * @param BeerStyle $style
      * @return BeerBought
      */
@@ -23,6 +25,7 @@ final class BeerBought extends AggregateChanged
         BeerId $beerId,
         Brewer $brewer,
         BeerName $name,
+        ?Shop $shop,
         BeerStyle $style
     ): BeerBought {
         $event = self::occur(
@@ -30,6 +33,7 @@ final class BeerBought extends AggregateChanged
             [
                 'brewer' => $brewer->toString(),
                 'name' => $name->toString(),
+                'shop' => $shop->toString(),
                 'style' => $style->toString()
             ]
         );
@@ -59,6 +63,17 @@ final class BeerBought extends AggregateChanged
     public function name(): BeerName
     {
         return BeerName::fromString($this->payload['name']);
+    }
+
+    /**
+     * @return Shop|null
+     */
+    public function shop(): ?Shop
+    {
+        if (isset($this->payload['shop'])) {
+            return Shop::fromString($this->payload['shop']);
+        }
+        return null;
     }
 
     /**

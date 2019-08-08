@@ -35,6 +35,7 @@ CREATE TABLE `$tableName` (
   `id` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
   `brewer` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `shop` varchar(255) COLLATE utf8_unicode_ci NULL,
   `style` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `bought_on` dateTime COLLATE utf8_unicode_ci NOT NULL,
   `location` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,

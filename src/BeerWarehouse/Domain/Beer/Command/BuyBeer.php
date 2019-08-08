@@ -10,6 +10,7 @@ use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\Location;
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;
+use Webbaard\BeerWarehouse\Domain\Beer\ValueObject\Shop;
 
 final class BuyBeer extends Command implements PayloadConstructable
 {
@@ -19,18 +20,21 @@ final class BuyBeer extends Command implements PayloadConstructable
      * @param string $brewer
      * @param string $name
      * @param string $style
-     * @param null|string $location
+     * @param string|null $shop
+     * @param string|null $location
      * @return BuyBeer
      */
     public static function forWarehouse(
         string $brewer,
         string $name,
         string $style,
+        ?string $shop = null,
         ?string $location = null
     ): BuyBeer {
         return new self([
             'brewer' => $brewer,
             'name' => $name,
+            'shop' => $shop,
             'style' => $style,
             'location' => $location
         ]);
@@ -50,6 +54,17 @@ final class BuyBeer extends Command implements PayloadConstructable
     public function name(): BeerName
     {
         return BeerName::fromString($this->payload['name']);
+    }
+
+    /**
+     * @return Shop|null
+     */
+    public function shop(): ?Shop
+    {
+        if ($this->payload['shop']) {
+            return Shop::fromString($this->payload['shop']);
+        }
+        return null;
     }
 
     /**

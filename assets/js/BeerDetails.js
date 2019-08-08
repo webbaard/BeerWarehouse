@@ -16,6 +16,7 @@ export default function BeerDetails(props){
                 <p>Name : {beerDetails.data.name}</p>
                 <p>Brewer : {beerDetails.data.brewer}</p>
                 <p>Style : {beerDetails.data.style}</p>
+                <p>Shop : {beerDetails.data.shop}</p>
                 <p>Location : {beerDetails.data.location}</p>
                 <p>Bought on : {beerDetails.data.bought_on}</p>
             </Card.Body>

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Webbaard\BeerWarehouse\Domain\Beer\CommandHandler;
 
+use Exception;
 use Webbaard\BeerWarehouse\Domain\Beer\Beer;
 use Webbaard\BeerWarehouse\Domain\Beer\Command\BuyBeer;
 use Webbaard\BeerWarehouse\Domain\Beer\Repository\BeerCollection;
@@ -23,14 +24,15 @@ final class BuyBeerHandler
 
     /**
      * @param BuyBeer $command
-     * @throws \Exception
+     * @throws Exception
      */
     public function __invoke(BuyBeer $command): void
     {
         $beer = Beer::buyBeer(
             $command->brewer(),
             $command->name(),
-            $command->style()
+            $command->style(),
+            $command->shop()
         );
         if (!is_null($command->location())) {
             $beer->moveTo($command->location());

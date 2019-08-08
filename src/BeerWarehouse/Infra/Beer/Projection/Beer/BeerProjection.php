@@ -30,6 +30,7 @@ final class BeerProjection implements ReadModelProjection
                         'id' => $event->id()->toString(),
                         'brewer' => $event->brewer()->toString(),
                         'name' => $event->name()->toString(),
+                        'shop' => $event->shop() ? $event->shop()->toString() : null,
                         'style' => $event->style()->toString(),
                         'bought_on' => $event->date()->toString()
                     ]);

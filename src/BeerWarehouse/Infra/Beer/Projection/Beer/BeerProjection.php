@@ -11,7 +11,8 @@ use Prooph\EventStore\Projection\ReadModelProjector;
 use Webbaard\BeerWarehouse\Domain\Beer\Event\BeerRemoved;
 use Webbaard\BeerWarehouse\Domain\Location\Event\LocationAdded;
 use Webbaard\BeerWarehouse\Domain\Location\Event\LocationRemoved;
-use Webbaard\BeerWarehouse\Infra\Beer\Projection\Location\LocationReadModel;
+use Webbaard\BeerWarehouse\Domain\Style\Event\StyleAdded;
+use Webbaard\BeerWarehouse\Domain\Style\Event\StyleRemoved;
 
 final class BeerProjection implements ReadModelProjection
 {
@@ -23,18 +24,19 @@ final class BeerProjection implements ReadModelProjection
     {
         $projector->fromStream('event_stream')
             ->init(function (): array {
-                return ['locations' => []];
+                return ['locations' => [], 'styles' => []];
             })
             ->when([
                 BeerBought::class => function ($state, BeerBought $event) {
                     /** @var BeerReadModel $readModel */
                     $readModel = $this->readModel();
+                    $style = isset($state['styles'][$event->style()->toString()]) ? $state['styles'][$event->style()->toString()] : $event->style()->toString();
                     $readModel->stack('insert', [
                         'id' => $event->id()->toString(),
                         'brewer' => $event->brewer()->toString(),
                         'name' => $event->name()->toString(),
                         'shop' => $event->shop() ? $event->shop()->toString() : null,
-                        'style' => $event->style()->toString(),
+                        'style' => $style,
                         'bought_on' => $event->date()->toString()
                     ]);
                 },
@@ -71,6 +73,14 @@ final class BeerProjection implements ReadModelProjection
                 },
                 LocationRemoved::class => function ($state, LocationRemoved $event) {
                     unset($state['locations'][$event->id()->toString()]);
+                    return $state;
+                },StyleAdded::class => function($state, StyleAdded $event) {
+                    $state['styles'][$event->id()->toString()] =
+                        $event->name()->toString();
+                    return $state;
+                },
+                StyleRemoved::class => function($state, StyleRemoved $event) {
+                    unset($state['styles'][$event->id()->toString()]);
                     return $state;
                 }
             ]);

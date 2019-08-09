@@ -71,6 +71,7 @@ export default class BeerDashboard extends Component {
             'id' : id
         }));
         this.getBeerData();
+        this.onSelection();
     }
 
     onRemoveBeer(id) {
@@ -78,6 +79,7 @@ export default class BeerDashboard extends Component {
             'id' : id
         }));
         this.getBeerData();
+        this.onSelection();
     }
 
     onMoveBeer(id, location) {

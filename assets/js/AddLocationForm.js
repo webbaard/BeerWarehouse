@@ -3,12 +3,11 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PropTypes from "prop-types";
 
-//This Component is a child Component of Customers Component
 export default class AddLocationForm extends Component {
 
     constructor(props) {
         super(props);
-        this.nameInput = React.createRef();
+        this.roomInput = React.createRef();
         this.containerInput= React.createRef();
         this.shelfInput= React.createRef();
 
@@ -18,14 +17,14 @@ export default class AddLocationForm extends Component {
     handleSubmit (event) {
         event.preventDefault();
         const { onNewLocationSubmit } = this.props;
+        const roomInout = this.roomInput.current;
         const containerInput = this.containerInput.current;
         const shelfInput = this.shelfInput.current;
-        const roomInout = this.nameInput.current;
 
         onNewLocationSubmit(
+            roomInout.value,
             containerInput.value,
-            shelfInput.value,
-            roomInout.value
+            shelfInput.value
         );
     }
 
@@ -34,7 +33,7 @@ export default class AddLocationForm extends Component {
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="room">
                     <Form.Label>Room name</Form.Label>
-                    <Form.Control type="text" ref={this.nameInput} placeholder="Enter room"/>
+                    <Form.Control type="text" ref={this.roomInput} placeholder="Enter room"/>
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>

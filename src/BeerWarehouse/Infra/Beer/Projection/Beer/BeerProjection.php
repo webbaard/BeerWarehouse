@@ -74,7 +74,8 @@ final class BeerProjection implements ReadModelProjection
                 LocationRemoved::class => function ($state, LocationRemoved $event) {
                     unset($state['locations'][$event->id()->toString()]);
                     return $state;
-                },StyleAdded::class => function($state, StyleAdded $event) {
+                },
+                StyleAdded::class => function($state, StyleAdded $event) {
                     $state['styles'][$event->id()->toString()] =
                         $event->name()->toString();
                     return $state;

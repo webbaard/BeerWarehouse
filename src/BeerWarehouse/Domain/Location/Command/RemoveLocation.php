@@ -13,18 +13,6 @@ final class RemoveLocation extends Command implements PayloadConstructable
     use PayloadTrait;
 
     /**
-     * @param string $id
-     * @return RemoveLocation
-     */
-    public static function fromLocations(
-        string $id
-    ): RemoveLocation {
-        return new self([
-            'id' => $id
-        ]);
-    }
-
-    /**
      * @return LocationId
      */
     public function locationId(): LocationId

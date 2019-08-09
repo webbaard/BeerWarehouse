@@ -15,24 +15,6 @@ final class AddLocation extends Command implements PayloadConstructable
     use PayloadTrait;
 
     /**
-     * @param string $room
-     * @param string $container
-     * @param string $shelf
-     * @return AddLocation
-     */
-    public static function toLocations(
-        string $room,
-        string $container,
-        string $shelf
-    ): AddLocation {
-        return new self([
-            'room' => $room,
-            'container' => $container,
-            'shelf' => $shelf
-        ]);
-    }
-
-    /**
      * @return Room
      */
     public function room(): Room

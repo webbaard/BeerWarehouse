@@ -23,8 +23,8 @@ final class LocationProjection implements ReadModelProjection
                     $readModel->stack('insert', [
                         'id' => $event->id()->toString(),
                         'room' => $event->room()->toString(),
-                        'container' => $event->container()->toString(),
                         'shelf' => $event->shelf()->toString(),
+                        'container' => $event->container()->toString(),
                     ]);
                 },
                 LocationRemoved::class => function($state, LocationRemoved $event) {

@@ -13,18 +13,6 @@ final class AddStyle extends Command implements PayloadConstructable
     use PayloadTrait;
 
     /**
-     * @param string $name
-     * @return AddStyle
-     */
-    public static function toStyles(
-        string $name
-    ): AddStyle {
-        return new self([
-            'name' => $name
-        ]);
-    }
-
-    /**
      * @return Name
      */
     public function name(): Name

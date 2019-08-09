@@ -14,21 +14,9 @@ final class RemoveStyle extends Command implements PayloadConstructable
     use PayloadTrait;
 
     /**
-     * @param string $id
-     * @return RemoveStyle
-     */
-    public static function fromLocations(
-        string $id
-    ): RemoveStyle {
-        return new self([
-            'id' => $id
-        ]);
-    }
-
-    /**
      * @return StyleId
      */
-    public function StyleId(): StyleId
+    public function styleId(): StyleId
     {
         return StyleId::fromString($this->payload['id']);
     }

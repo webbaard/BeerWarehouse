@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Webbaard\BeerWarehouse\Domain\Location;
 
+use Exception;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
 use Ramsey\Uuid\Uuid;
@@ -36,7 +37,7 @@ final class Location extends AggregateRoot{
      * @param Container $container
      * @param Shelf $shelf
      * @return Location
-     * @throws \Exception
+     * @throws Exception
      */
     public static function fromDescription(
         Room $room,

@@ -2771,6 +2771,12 @@ eslint-utils@^1.3.1:
   dependencies:
     eslint-visitor-keys "^1.0.0"
 
+eslint-utils@^1.4.1:
+  version "1.4.2"
+  resolved "https://npmregistry.printdeal.cloud/eslint-utils/-/eslint-utils-1.4.2.tgz#166a5180ef6ab7eb462f162fd0e6f2463d7309ab"
+  dependencies:
+    eslint-visitor-keys "^1.0.0"
+
 eslint-visitor-keys@^1.0.0:
   version "1.0.0"
   resolved "https://npmregistry.printdeal.cloud/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"

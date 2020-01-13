@@ -80,6 +80,9 @@
     "jean85/pretty-package-versions": {
         "version": "1.2"
     },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.0.1"
+    },
     "limenius/react-bundle": {
         "version": "v3.0.1"
     },
@@ -332,6 +335,9 @@
     "symfony/dotenv": {
         "version": "v4.0.9"
     },
+    "symfony/error-handler": {
+        "version": "v4.4.2"
+    },
     "symfony/event-dispatcher": {
         "version": "v4.2.2"
     },
@@ -487,6 +493,9 @@
     },
     "twig/twig": {
         "version": "v2.4.8"
+    },
+    "webimpress/safe-writer": {
+        "version": "2.0.0"
     },
     "webmozart/assert": {
         "version": "1.3.0"

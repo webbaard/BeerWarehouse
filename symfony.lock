@@ -140,6 +140,9 @@
     "phar-io/version": {
         "version": "1.0.1"
     },
+    "php": {
+        "version": "7.4"
+    },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
     },
@@ -435,7 +438,7 @@
         "version": "v4.0.9"
     },
     "symfony/templating": {
-        "version": "v4.0.9"
+        "version": "v4.4.2"
     },
     "symfony/translation-contracts": {
         "version": "v1.1.5"
@@ -476,14 +479,24 @@
             "ref": "dae9b39fd6717970be7601101ce5aa960bf53d9a"
         }
     },
-    "symfony/webpack-encore-pack": {
-        "version": "1.0",
+    "symfony/webpack-encore-bundle": {
+        "version": "1.6",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "1.0",
-            "ref": "0e8ef1deeaef761e1defbec0be694237660ab13a"
-        }
+            "version": "1.6",
+            "ref": "69e1d805ad95964088bd510c05995e87dc391564"
+        },
+        "files": [
+            "./assets/css/app.css",
+            "./assets/js/app.js",
+            "./config/packages/assets.yaml",
+            "./config/packages/prod/webpack_encore.yaml",
+            "./config/packages/test/webpack_encore.yaml",
+            "./config/packages/webpack_encore.yaml",
+            "./package.json",
+            "./webpack.config.js"
+        ]
     },
     "symfony/yaml": {
         "version": "v4.0.9"

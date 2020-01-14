@@ -7,6 +7,7 @@ namespace Webbaard\BeerWarehouse\Application\Controller;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
 
 /**
  * Class HomepageController
@@ -14,26 +15,21 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class HomepageController
 {
-    /**
-     * @var EngineInterface
-     */
-    private $templateEngine;
+    private Environment $environment;
 
-    /**
-     * HomepageController constructor.
-     * @param EngineInterface $engine
-     */
-    public function __construct(EngineInterface $engine)
+    public function __construct(Environment $environment)
     {
-        $this->templateEngine = $engine;
+        $this->environment = $environment;
     }
 
     public function indexAction(Request $request): Response
     {
-        return $this
-            ->templateEngine
-            ->renderResponse(
+        return new Response(
+            $this
+            ->environment
+            ->render(
                 'pages/homepage/dashboard.html.twig'
-            );
+            )
+        );
     }
 }

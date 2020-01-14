@@ -18,16 +18,10 @@ class BeerProjectionManager implements ProjectionManager
     /** @var BeerReadModel */
     private $beerReadModel;
 
-    /**
-     * BeerProjectionManager constructor.
-     * @param ProophProjectionManager $projectionManager
-     * @param BeerProjection $beerProjection
-     * @param ReadModel $beerReadModel
-     */
     public function __construct(
         ProophProjectionManager $projectionManager,
         BeerProjection $beerProjection,
-        ReadModel $beerReadModel
+        BeerReadModel $beerReadModel
     ) {
         $this->beerReadModel = $beerReadModel;
         $this->beerProjector = $beerProjection->project(

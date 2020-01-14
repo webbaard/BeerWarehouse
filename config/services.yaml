@@ -17,7 +17,6 @@ services:
         exclude: '../src/{Entity,Migrations,Repository,Tests,Domain,Controller,Kernel.php}'
 
     Webbaard\BeerWarehouse\Application\Controller\HomepageController:
-        arguments: ['@templating']
         tags: ['controller.service_arguments']
 
     Webbaard\BeerWarehouse\Application\Controller\BeerCollectionController:
@@ -128,17 +127,11 @@ services:
     Webbaard\BeerWarehouse\Infra\Beer\Projection\Beer\BeerProjectionManager:
         arguments:
             - '@prooph_event_store.projection_manager.beer_projection_manager'
-            - '@prooph_event_store.projection.beer_projection'
-            - '@prooph_event_store.projection.beer_projection.read_model'
 
     Webbaard\BeerWarehouse\Infra\Beer\Projection\Location\LocationProjectionManager:
         arguments:
             - '@prooph_event_store.projection_manager.location_projection_manager'
-            - '@prooph_event_store.projection.location_projection'
-            - '@prooph_event_store.projection.location_projection.read_model'
 
     Webbaard\BeerWarehouse\Infra\Beer\Projection\Style\StyleProjectionManager:
         arguments:
             - '@prooph_event_store.projection_manager.style_projection_manager'
-            - '@prooph_event_store.projection.style_projection'
-            - '@prooph_event_store.projection.style_projection.read_model'

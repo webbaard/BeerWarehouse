@@ -18,16 +18,10 @@ class StyleProjectionManager implements ProjectionManager
     /** @var StyleReadModel */
     private $styleReadModel;
 
-    /**
-     * StyleProjectionManager constructor.
-     * @param ProophProjectionManager $projectionManager
-     * @param StyleProjection $styleProjection
-     * @param ReadModel $styleReadModel
-     */
     public function __construct(
         ProophProjectionManager $projectionManager,
         StyleProjection $styleProjection,
-        ReadModel $styleReadModel
+        StyleReadModel $styleReadModel
     ) {
         $this->styleReadModel = $styleReadModel;
         $this->styleProjector = $styleProjection->project(

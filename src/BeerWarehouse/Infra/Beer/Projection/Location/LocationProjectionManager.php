@@ -18,16 +18,10 @@ class LocationProjectionManager implements ProjectionManager
     /** @var LocationReadModel */
     private $locationReadModel;
 
-    /**
-     * LocationProjectionManager constructor.
-     * @param ProophProjectionManager $projectionManager
-     * @param LocationProjection $locationProjection
-     * @param ReadModel $locationReadModel
-     */
     public function __construct(
         ProophProjectionManager $projectionManager,
         LocationProjection $locationProjection,
-        ReadModel $locationReadModel
+        LocationReadModel $locationReadModel
     ) {
         $this->locationReadModel = $locationReadModel;
         $this->locationProjector = $locationProjection->project(
